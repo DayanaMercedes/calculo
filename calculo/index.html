@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Cálculo Diferencial</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Anime.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <!-- MathJax library for math formulas -->
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #6c757d;
+            text-align: center;
+        }
+
+        #mathExplanation {
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Estilos para la etiqueta <p> */
+        p {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Estilos para el botón */
+        .custom-button {
+            background-color: dodgerblue;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .custom-button:hover {
+            background-color: orange;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Animate the welcome message
+            anime({
+                targets: 'h1',
+                translateY: [-20, 0],
+                opacity: [0, 1],
+                easing: 'easeOutExpo',
+                duration: 1500,
+                delay: 500
+            });
+
+            // Animate the math explanation
+            anime({
+                targets: '#mathExplanation',
+                translateY: [20, 0],
+                opacity: [0, 1],
+                easing: 'easeOutExpo',
+                duration: 1500,
+                delay: 1000
+            });
+
+            // Show the welcome modal
+            $('#welcomeModal').modal('show');
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Cálculo Diferencial</h1>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div id="mathExplanation">
+                    <h2 class="text-center">Explicación de Derivadas</h2><br>
+                    <p>La historia de la derivada se remonta a los siglos XVII y XVIII...</p>
+
+                    <!-- ... (Contenido adicional) -->
+
+                    <p>Hoy en día, ambas notaciones y enfoques se enseñan y utilizan en el estudio del cálculo...
+                        En términos más simples, las derivadas nos permiten entender cómo cambian las cosas, ya 
+                        sea la posición de un objeto, el costo de producción, o cualquier otra variable, en un 
+                        instante específico. <br>
+                         Su desarrollo fue crucial para el avance de la ciencia y la resolución 
+                        de problemas prácticos en diversas disciplinas.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div id="mathExplanation">
+                    <h2 class="text-center">¿Cómo Graficar Funciones?</h2> <br>
+                    <p>La creación de funciones y su representación gráfica es fundamental en matemáticas...
+                        Graficar funciones es representar visualmente cómo una variable dependiente cambia en relación con una o más variables independientes. Aquí hay una breve explicación de cómo hacerlo:
+
+Selecciona la Función: Empieza con la función que deseas graficar. Puede ser algo como 
+y=f(x), donde 
+y es la variable dependiente y 
+
+x es la variable independiente.
+Elige un Rango: Decide el rango de valores para la variable independiente 
+x que quieres representar en el gráfico. Esto define el dominio de la función.
+Evalúa la Función: <br>
+Para cada valor de 
+x en tu rango seleccionado, calcula el valor correspondiente de 
+y usando la función. Estos pares de valores 
+( x , y ) formarán puntos en el gráfico. <br>
+
+Marca los Puntos: En un sistema de coordenadas (con ejes x , y ), coloca puntos para cada par 
+( x, y ) calculado. Estos puntos representan la función. <br><br>
+
+Conecta los Puntos: Para tener una representación visual continua, puedes unir los puntos 
+con líneas o curvas suaves. Esto te da la forma general de la función.
+
+Etiqueta los Ejes: Asegúrate de etiquetar claramente los ejes 
+x , y para que los lectores puedan entender qué representa cada eje. <br><br>
+
+Añade Detalles: Si es necesario, puedes agregar detalles adicionales como escalas,
+ títulos, leyendas, o cualquier información relevante para hacer el gráfico más comprensible.
+Revisa el Gráfico: <br>
+Antes de considerar el gráfico finalizado, revísalo para asegurarte de que 
+refleje correctamente la función y tenga una apariencia clara. <br><br>
+
+Al seguir estos pasos, puedes crear un gráfico que visualice de manera efectiva cómo la función 
+se comporta en el rango de valores seleccionado. Esto es crucial en matemáticas, ciencia y muchas 
+otras disciplinas para comprender el comportamiento de las relaciones entre variables.
+                    </p>
+
+                    <!-- Botón para redirigir a la página vista/calculo.html -->
+                    <button class="custom-button"  onclick="window.location.href='vista/calculo.html'">
+                        Calcular
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="welcomeModalLabel">¡Bienvenido!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Esta Página está hecha con fines académicos. ^_^</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+        });
+    </script>
+</body>
+
+</html>

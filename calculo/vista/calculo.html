@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>calculo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        #graphContainer {
+            margin-top: 20px;
+        }
+
+        #optimizationExercise,
+        #interpretationExercise {
+            margin-top: 40px;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+ 
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h3>Cálculo Diferencial</h3>
+
+        <!-- Pregunta N°1: Calcular dos derivadas -->
+        <div id="derivativeExercise">
+            <h5>Pregunta N°1: Calcular dos derivadas</h5>
+            <label for="functionInput1">Ingresa una función:</label>
+            <input type="text" id="functionInput1" class="form-control mb-3" placeholder="Ejemplo: 3*x^2 + 2*x - 1">
+            <button class="btn btn-primary" onclick="calculateDerivatives(functionInput1)">Calcular Derivadas</button>
+            <p id="firstDerivativeResult"></p>
+            <p id="secondDerivativeResult"></p>
+        </div>
+
+        <!-- Pregunta N°2: Graficar una función, aplicando criterios de máximos, mínimos y concavidad -->
+        <div id="graphExercise">
+            <h5>Pregunta N°2: Graficar una función</h5>
+            <label for="functionInput2">Ingresa una función:</label>
+            <input type="text" id="functionInput2" class="form-control mb-3"
+                placeholder="Ejemplo: x^3 - 3*x^2 - 9*x + 5">
+            <button class="btn btn-primary" onclick="plotGraph(functionInput2)">Graficar Función</button>
+            <div id="graphContainer"></div>
+        </div>
+
+        <!-- Pregunta N°3: Un problema contextualizado de aplicación de derivadas a la optimización -->
+        <div id="optimizationExercise">
+            <h5>Pregunta N°3: Problema de optimización</h5>
+            <label for="functionInput3">Ingresa una función:</label>
+            <input type="text" id="functionInput3" class="form-control mb-3" placeholder="Ejemplo: x^2 + 2*x - 1">
+            <label for="rangeStart">Rango de optimización - Inicio:</label>
+            <input type="text" id="rangeStart" class="form-control mb-3" placeholder="Inicio del rango">
+            <label for="rangeEnd">Rango de optimización - Fin:</label>
+            <input type="text" id="rangeEnd" class="form-control mb-3" placeholder="Fin del rango">
+            <button class="btn btn-primary" onclick="optimize(functionInput3)">Calcular Optimización</button>
+            <p id="optimizationResult"></p>
+        </div>
+
+        <!-- Pregunta N°4: Un problema de interpretación de derivada como tasa de cambio -->
+        <div id="interpretationExercise">
+            <h5>Pregunta N°4: Interpretación de derivada como tasa de cambio</h5>
+            <label for="positionFunction">Función de posición (en términos de t):</label>
+            <input type="text" id="positionFunction" class="form-control mb-3" placeholder="Ejemplo: 2*t^2 + 3*t + 1">
+            <button class="btn btn-primary" onclick="interpretDerivative(positionFunction)">Interpretar
+                Derivada</button>
+            <p id="interpretationResult"></p>
+        </div>
+
+    </div>
+
+    <script>
+
+        // Función para calcular derivadas
+        function calculateDerivatives() {
+            const functionInput = document.getElementById('functionInput1').value;
+
+            try {
+                // Realizar cálculos de derivadas aquí utilizando math.js
+                const expr = math.compile(functionInput);
+                const firstDerivative = expr.derivative('x');
+                const secondDerivative = firstDerivative.derivative('x');
+
+                document.getElementById('firstDerivativeResult').innerHTML = `Primera derivada: ${firstDerivative}`;
+                document.getElementById('secondDerivativeResult').innerHTML = `Segunda derivada: ${secondDerivative}`;
+            } catch (error) {
+                document.getElementById('firstDerivativeResult').innerHTML = 'Error al calcular la derivada';
+                document.getElementById('secondDerivativeResult').innerHTML = '';
+            }
+        }
+
+        // Función para graficar una función
+        function plotGraph() {
+            const functionInput = document.getElementById('functionInput2').value;
+            const graphContainer = document.getElementById('graphContainer');
+
+            try {
+                // Parsear la función
+                const expr = math.compile(functionInput);
+
+                // Datos para la gráfica
+                const xValues = math.range(-10, 10, 0.1).toArray();
+                const yValues = xValues.map(x => expr.evaluate({ x }));
+
+                // Graficar utilizando Plotly
+                const trace = {
+                    x: xValues,
+                    y: yValues,
+                    type: 'scatter',
+                };
+
+                const layout = {
+                    title: 'Gráfica de la función',
+                    xaxis: { title: 'x' },
+                    yaxis: { title: 'y' },
+                };
+
+                Plotly.newPlot(graphContainer, [trace], layout);
+            } catch (error) {
+                graphContainer.innerHTML = 'Error al graficar la función';
+                console.error(error); // Imprimir el error en la consola del navegador para la depuración
+            }
+        }
+        // Función para resolver un problema de optimización
+        function optimize() {
+            const functionInput = document.getElementById('functionInput3').value;
+            const rangeStart = parseFloat(document.getElementById('rangeStart').value);
+            const rangeEnd = parseFloat(document.getElementById('rangeEnd').value);
+
+            try {
+                // Parsear la función
+                const expr = math.compile(functionInput);
+
+                // Definir la función para encontrar el máximo
+                const optimizationFunction = x => -1 * expr.evaluate({ x }); // Negativo para convertir maximización en minimización
+
+                // Encontrar el máximo utilizando math.js
+                const result = math.optimize(optimizationFunction, rangeStart, rangeEnd);
+
+                // Mostrar los resultados en el elemento con id 'optimizationResult'
+                document.getElementById('optimizationResult').innerHTML = `El valor óptimo de x es ${result.root}, y el valor máximo es ${-result.fx}`;
+            } catch (error) {
+                document.getElementById('optimizationResult').innerHTML = 'Error al optimizar la función';
+            }
+        }
+
+        // Función para interpretar la derivada como tasa de cambio
+        function interpretDerivative() {
+            const positionFunctionInput = document.getElementById('positionFunction').value;
+
+            try {
+                // Parsear la función de posición
+                const positionExpr = math.compile(positionFunctionInput);
+
+                // Calcular la derivada como tasa de cambio (velocidad)
+                const velocityExpr = positionExpr.derivative('t');
+
+                // Mostrar los resultados en el elemento con id 'interpretationResult'
+                document.getElementById('interpretationResult').innerHTML = `La derivada de la posición con respecto al tiempo es: ${velocityExpr}`;
+            } catch (error) {
+                document.getElementById('interpretationResult').innerHTML = 'Error al interpretar la derivada';
+            }
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.min.js"></script>
+</body>
+
+</html>
